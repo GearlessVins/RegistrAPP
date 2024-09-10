@@ -1,0 +1,72 @@
+<!-- Encabezado de la página -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>RegistrAPP</ion-title> <!-- Título de la página -->
+  </ion-toolbar>
+</ion-header>
+
+<!-- Contenido de la página -->
+<ion-content [fullscreen]="true">
+  <div class="login-container">
+    <!-- Formulario de inicio de sesión -->
+    <form [formGroup]="formularioLogin">
+
+      <!-- Título del formulario -->
+      <h1>RegistrAPP</h1>
+
+      <!-- Campo de usuario -->
+      <ion-item [ngClass]="{'invalid': isFieldInvalid('usuario'), 'valid': isFieldValid('usuario')}">
+        <ion-label position="floating" [class.floating]="usuarioFocused || formularioLogin.get('usuario')?.value">
+          Usuario
+        </ion-label>
+        <ion-input 
+          type="text" 
+          formControlName="usuario" 
+          (ionFocus)="usuarioFocused = true" 
+          (ionBlur)="usuarioFocused = false">
+        </ion-input>
+      </ion-item>
+
+      <!-- Mensaje de error para el campo de usuario -->
+      <ion-text color="danger" *ngIf="isFieldInvalid('usuario')" class="error-message">
+        Ingresa un nombre de usuario válido
+      </ion-text>
+
+      <!-- Campo de contraseña -->
+      <ion-item [ngClass]="{'invalid': isFieldInvalid('contraseña'), 'valid': isFieldValid('contraseña')}">
+        <ion-label position="floating" [class.floating]="passwordFocused || formularioLogin.get('contraseña')?.value">
+          Contraseña
+        </ion-label>
+        <ion-input 
+          type="password" 
+          formControlName="contraseña" 
+          (ionFocus)="passwordFocused = true" 
+          (ionBlur)="passwordFocused = false">
+        </ion-input>
+      </ion-item>
+
+      <!-- Mensaje de error para el campo de contraseña -->
+      <ion-text color="danger" *ngIf="isFieldInvalid('contraseña')" class="error-message">
+        Ingresa una contraseña válida
+      </ion-text>
+
+      <!-- Botón de inicio de sesión -->
+      <ion-button expand="full" [disabled]="!formularioLogin.valid" (click)="irHome()">
+        Login
+      </ion-button>
+      
+    </form>
+  </div>
+</ion-content>
+
+<!-- Pie de página -->
+<ion-footer>
+  <ion-toolbar color="primary" class="centered-toolbar">
+    <ion-buttons>
+      <!-- Botón para recuperar contraseña -->
+      <ion-button class="centered-button" [routerLink]="['/formulario']">
+        Recuperar Contraseña
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
