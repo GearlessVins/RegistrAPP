@@ -1,3 +1,8 @@
+/* Fondo de la pantalla de inicio */
+ion-content {
+  --background: #A3D5FF; /* Azul pastel suave */
+}
+
 /* Contenedor principal centrado verticalmente */
 #container {
   text-align: center;
@@ -30,40 +35,35 @@ ion-datetime {
 /* Estilos para la clase iniciada */
 .class-started {
   color: green; /* Color verde para la clase iniciada */
+  animation: blink 1s infinite; /* Animación de parpadeo */
 }
 
 /* Estilos para la clase no iniciada */
 .class-not-started {
   color: red; /* Color rojo para la clase no iniciada */
+  animation: blink 1s infinite; /* Animación de parpadeo */
 }
 
-/* Animación de respiración */
-@keyframes breathing {
+/* Animación de parpadeo */
+@keyframes blink {
   0% {
-    transform: scale(1);
     opacity: 1;
   }
   50% {
-    transform: scale(1.05);
-    opacity: 0.7;
+    opacity: 0;
   }
   100% {
-    transform: scale(1);
     opacity: 1;
   }
 }
 
-/* Aplicación de la animación de respiración a las clases */
-.class-started, .class-not-started {
-  animation: breathing 3s ease-in-out infinite;
-  transition: color 0.5s ease-in-out, transform 0.5s ease-in-out;
+/* Estilos para el botón de finalizar clase */
+#end-class-button {
+  margin-top: 20px;
 }
 
-/* Se repiten los estilos para las clases, se puede evitar la duplicación */
-.class-started {
-  color: green;
-}
-
-.class-not-started {
-  color: red;
+/* Estilos personalizados para el alert */
+.custom-alert {
+  --background: #fff;
+  --color: #000;
 }

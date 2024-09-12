@@ -1,11 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <!-- Botón de menú para abrir el menú lateral -->
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>
-      <h1>Bienvenido a RegistrAPP</h1>
+      <h1>Home</h1>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,7 +11,7 @@
     <!-- Saludo al usuario con el nombre recuperado -->
     <h1>Bienvenido, {{ usuario }}</h1>
     
-    <!-- Mensaje de estado con animación de respiración -->
+    <!-- Mensaje de estado con animación de parpadeo -->
     <h2 [ngClass]="{ 'class-started': isClassStarted, 'class-not-started': !isClassStarted }">
       {{ isClassStarted ? 'Clase iniciada' : 'Clase no iniciada' }}
     </h2>
@@ -24,8 +20,12 @@
       <!-- Toggle para cambiar el estado de la clase -->
       <ion-toggle aria-label="Green toggle" color="success" [(ngModel)]="isClassStarted"></ion-toggle>
       
-      <!-- Selector de fecha, deshabilitado si la clase no está iniciada -->
-      <ion-datetime locale="es-ES" displayFormat="DD/MM/YYYY" [disabled]="!isClassStarted"></ion-datetime>
+      <!-- Selector de hora, habilitado solo si la clase está iniciada -->
+      <ion-datetime presentation="time" [disabled]="!isClassStarted"></ion-datetime>
     </div>
+
+    <!-- Botón para finalizar la clase -->
+    <ion-button id="end-class-button">Finalizar Clase</ion-button>
+    <ion-alert trigger="end-class-button" class="custom-alert" header="¿Estás seguro?" [buttons]="alertButtons"></ion-alert>
   </div>
 </ion-content>
