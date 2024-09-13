@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <!-- Botón de menú para abrir el menú lateral -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -12,20 +11,14 @@
 
 <ion-content id="main-content" [fullscreen]="true">
   <div id="container">
-    <!-- Saludo al usuario con el nombre recuperado -->
     <h1>Bienvenido, {{ usuario }}</h1>
-    
-    <!-- Mensaje de estado con animación de respiración -->
     <h2 [ngClass]="{ 'class-started': isClassStarted, 'class-not-started': !isClassStarted }">
       {{ isClassStarted ? 'Clase iniciada' : 'Clase no iniciada' }}
     </h2>
-    
     <div class="toggle-container">
-      <!-- Toggle para cambiar el estado de la clase -->
       <ion-toggle aria-label="Green toggle" color="success" [(ngModel)]="isClassStarted"></ion-toggle>
-      
-      <!-- Selector de fecha, deshabilitado si la clase no está iniciada -->
       <ion-datetime locale="es-ES" displayFormat="DD/MM/YYYY" [disabled]="!isClassStarted"></ion-datetime>
     </div>
+    <ion-button (click)="presentAlert()">Finalizar la Clase</ion-button>
   </div>
 </ion-content>

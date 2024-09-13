@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router';  // Importa Router
 
 @Component({
   selector: 'app-login',
@@ -11,27 +11,47 @@ export class LoginPage {
   formularioLogin: FormGroup;
   usuarioFocused = false;
   passwordFocused = false;
+  
+  // Propiedades para mostrar/ocultar la contraseña
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off';
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router) {  // Inyecta Router
     this.formularioLogin = this.fb.group({
       usuario: ['', Validators.required],
-      contraseña: ['', Validators.required],
+      contraseña: ['', Validators.required]
     });
   }
 
+  // Método para verificar si un campo es inválido
   isFieldInvalid(field: string): boolean {
     const control = this.formularioLogin.get(field);
-    return control?.invalid && (control.dirty || control.touched) || false;
+    return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
+  // Método para verificar si un campo es válido
   isFieldValid(field: string): boolean {
     const control = this.formularioLogin.get(field);
-    return control?.valid && (control.dirty || control.touched) || false;
+    return control ? control.valid && (control.dirty || control.touched) : false;
   }
 
+  // Método para redirigir al home
   irHome() {
-    const usuario = this.formularioLogin.get('usuario')?.value;
-    localStorage.setItem('usuario', usuario); // Guarda el usuario en localStorage
-    this.router.navigate(['/home']); // Redirige a la página de inicio
+    if (this.formularioLogin.valid) {  // Verifica si el formulario es válido
+      const usuario = this.formularioLogin.get('usuario')?.value;  // Obtén el valor del usuario
+      localStorage.setItem('usuario', usuario);  // Almacena el nombre de usuario en localStorage
+      this.router.navigate(['/home']);  // Redirige a la página de inicio
+    }
+  }
+
+  // Método para alternar la visibilidad de la contraseña
+  togglePasswordVisibility() {
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
+      this.passwordIcon = 'eye';
+    } else {
+      this.passwordType = 'password';
+      this.passwordIcon = 'eye-off';
+    }
   }
 }

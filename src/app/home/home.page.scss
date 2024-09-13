@@ -59,11 +59,11 @@ ion-datetime {
   transition: color 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
-/* Se repiten los estilos para las clases, se puede evitar la duplicación */
-.class-started {
-  color: green;
+/* Estilos para los botones de alerta */
+.alert-button-cancel {
+  color: red;
 }
 
-.class-not-started {
-  color: red;
+.alert-button-confirm {
+  color: green;
 }
