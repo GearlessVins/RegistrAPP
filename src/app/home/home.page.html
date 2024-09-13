@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <h1>Bienvenido a RegistrAPP</h1>
+      <h1>Home</h1>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,13 +12,21 @@
 <ion-content id="main-content" [fullscreen]="true">
   <div id="container">
     <h1>Bienvenido, {{ usuario }}</h1>
+    
+    <!-- Mensaje de estado con animación de parpadeo -->
     <h2 [ngClass]="{ 'class-started': isClassStarted, 'class-not-started': !isClassStarted }">
       {{ isClassStarted ? 'Clase iniciada' : 'Clase no iniciada' }}
     </h2>
+
     <div class="toggle-container">
       <ion-toggle aria-label="Green toggle" color="success" [(ngModel)]="isClassStarted"></ion-toggle>
+      
+      <!-- Selector de fecha/hora, habilitado solo si la clase está iniciada -->
       <ion-datetime locale="es-ES" displayFormat="DD/MM/YYYY" [disabled]="!isClassStarted"></ion-datetime>
     </div>
-    <ion-button (click)="presentAlert()">Finalizar la Clase</ion-button>
+
+    <!-- Botón para finalizar la clase -->
+    <ion-button id="end-class-button" (click)="presentAlert()">Finalizar la Clase</ion-button>
+    <ion-alert trigger="end-class-button" class="custom-alert" header="¿Estás seguro?" [buttons]="alertButtons"></ion-alert>
   </div>
 </ion-content>
