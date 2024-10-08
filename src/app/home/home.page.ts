@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular'; // Mantengo ambas importaciones
-import { Router } from '@angular/router'; // También conservo Router para la redirección
+import { AlertController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',

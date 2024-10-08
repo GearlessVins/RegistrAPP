@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FirstComponent } from './first-component/first-component.component';
+import { SecondComponentComponent } from './second-component/second-component.component'; 
+import { NotFoundComponent } from './not-found/not-found.component'; 
 
 const routes: Routes = [
   {
@@ -18,6 +21,18 @@ const routes: Routes = [
   {
     path: 'formulario',
     loadChildren: () => import('./formulario/formulario.module').then(m => m.FormularioPageModule)
+  },
+  {
+    path: 'first-component',
+    component: FirstComponent // Ruta para el primer componente
+  },
+  {
+    path: 'second-component',
+    component: SecondComponentComponent // Ruta para el segundo componente
+  },
+  {
+    path: '**', // Ruta wildcard para manejar 404
+    component: NotFoundComponent // Redirige a la página Not Found
   }
 ];
 
