@@ -31,6 +31,10 @@ const routes: Routes = [
     component: SecondComponentComponent // Ruta para el segundo componente
   },
   {
+    path: 'contactos',
+    loadChildren: () => import('./contactos/contactos.module').then(m => m.ContactosPageModule)
+  },
+  {
     path: '**', // Ruta wildcard para manejar 404
     component: NotFoundComponent // Redirige a la página Not Found
   }

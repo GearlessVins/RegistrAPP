@@ -1,0 +1,37 @@
+.modern-contact-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Espacio interno */
+    text-align: center; /* Centra el texto */
+    background-color: #f9f9f9; /* Fondo claro para un look limpio */
+  }
+  
+  .contact-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil para dar profundidad */
+    width: 100%;
+    max-width: 400px; /* Ancho máximo del card */
+    margin: 20px 0; /* Espacio entre cards */
+    overflow: hidden; /* Evita que el contenido sobresalga */
+  }
+  
+  .profile-image {
+    width: 100%; /* Imagen ocupa todo el ancho del card */
+    height: auto; /* Mantiene la relación de aspecto */
+    border-bottom-left-radius: 10px; /* Bordes redondeados */
+    border-bottom-right-radius: 10px; /* Bordes redondeados */
+  }
+  
+  .generate-button {
+    margin-top: 15px; /* Espacio superior */
+  }
+  
+  .loading-message {
+    font-size: 18px;
+    color: #888; /* Color gris para el mensaje de carga */
+    margin-top: 20px; /* Espacio superior */
+  }
+  

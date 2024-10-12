@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  isClassStarted: boolean = false;
-  usuario: string | null = null;
+  isClassStarted: boolean = false; // Estado de la clase
+  usuario: string | null = null; // Variable para almacenar el usuario
 
   // Definición de los botones del alert
   public alertButtons = [
@@ -24,7 +24,7 @@ export class HomePage implements OnInit {
       text: 'Si',
       cssClass: 'alert-button-confirm',
       handler: () => {
-        this.redirectToLogin();
+        this.redirectToLogin(); // Redirigir al login si se confirma
       }
     },
   ];
@@ -33,6 +33,7 @@ export class HomePage implements OnInit {
   constructor(private alertController: AlertController, private navCtrl: NavController, private router: Router) {}
 
   ngOnInit() {
+    // Recuperar el usuario del localStorage al inicializar
     this.usuario = localStorage.getItem('usuario');
   }
 
@@ -48,8 +49,7 @@ export class HomePage implements OnInit {
 
   // Método para redirigir al login
   redirectToLogin() {
-    // Usar NavController para redirigir al login
-    this.navCtrl.navigateRoot('/login');
+    this.navCtrl.navigateRoot('/login'); // Navegación al login
     // También se podría usar Router si prefieres: this.router.navigate(['/login']);
   }
 }

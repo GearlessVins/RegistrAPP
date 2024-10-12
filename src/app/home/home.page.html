@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <h1>Home</h1>
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +19,7 @@
     </h2>
 
     <div class="toggle-container">
-      <ion-toggle aria-label="Green toggle" color="success" [(ngModel)]="isClassStarted"></ion-toggle>
+      <ion-toggle aria-label="Toggle de clase" color="success" [(ngModel)]="isClassStarted"></ion-toggle>
       
       <!-- Selector de fecha/hora, habilitado solo si la clase está iniciada -->
       <ion-datetime locale="es-ES" displayFormat="DD/MM/YYYY" [disabled]="!isClassStarted"></ion-datetime>
