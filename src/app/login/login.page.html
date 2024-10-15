@@ -8,19 +8,14 @@
 <!-- Contenido de la página -->
 <ion-content [fullscreen]="true" class="login-background">
   <div id="container">
-    <!-- Contenedor del formulario -->
     <div class="login-container">
-      <!-- Formulario de inicio de sesión -->
       <form [formGroup]="formularioLogin">
 
-        <!-- Título del formulario -->
         <strong>Login RegistrApp</strong>
 
         <!-- Campo de usuario -->
         <ion-item [ngClass]="{'invalid': isFieldInvalid('usuario'), 'valid': isFieldValid('usuario')}">
-          <ion-label position="floating" [class.floating]="usuarioFocused || formularioLogin.get('usuario')?.value">
-            Usuario
-          </ion-label>
+          <ion-label position="floating">Usuario</ion-label>
           <ion-input 
             type="text" 
             formControlName="usuario" 
@@ -34,11 +29,9 @@
           Ingresa un nombre de usuario válido
         </ion-text>
 
-        <!-- Campo de contraseña con botón para mostrar/ocultar -->
+        <!-- Campo de contraseña -->
         <ion-item [ngClass]="{'invalid': isFieldInvalid('contraseña'), 'valid': isFieldValid('contraseña')}">
-          <ion-label position="floating" [class.floating]="passwordFocused || formularioLogin.get('contraseña')?.value">
-            Contraseña
-          </ion-label>
+          <ion-label position="floating">Contraseña</ion-label>
           <ion-input 
             [type]="passwordType" 
             formControlName="contraseña" 

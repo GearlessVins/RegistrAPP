@@ -1,47 +1,29 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FirstComponent } from './first-component/first-component.component';
-import { SecondComponentComponent } from './second-component/second-component.component'; 
-import { NotFoundComponent } from './not-found/not-found.component'; 
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard'; // Asegúrate de que esta ruta sea correcta
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
-  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    canActivate: [AuthGuard] // Aplica el guard a la ruta home
   },
   {
     path: 'formulario',
-    loadChildren: () => import('./formulario/formulario.module').then(m => m.FormularioPageModule)
-  },
-  {
-    path: 'first-component',
-    component: FirstComponent // Ruta para el primer componente
-  },
-  {
-    path: 'second-component',
-    component: SecondComponentComponent // Ruta para el segundo componente
+    loadChildren: () => import('./formulario/formulario.module').then(m => m.FormularioPageModule),
   },
   {
     path: 'contactos',
-    loadChildren: () => import('./contactos/contactos.module').then(m => m.ContactosPageModule)
+    loadChildren: () => import('./contactos/contactos.module').then(m => m.ContactosPageModule),
+    canActivate: [AuthGuard] // Aplica el guard a la ruta contactos
   },
-  {
-    path: '**', // Ruta wildcard para manejar 404
-    component: NotFoundComponent // Redirige a la página Not Found
-  }
+  { path: '**', redirectTo: 'login' } // Redirige a login si la ruta no se encuentra
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

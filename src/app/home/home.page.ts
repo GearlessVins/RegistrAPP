@@ -1,55 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service'; // Asegúrate de que esta ruta sea correcta
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular'; // Asegúrate de que esta ruta sea correcta
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
-  isClassStarted: boolean = false; // Estado de la clase
-  usuario: string | null = null; // Variable para almacenar el usuario
+export class HomePage {
+  usuario: string; // Propiedad para almacenar el nombre de usuario
+  isClassStarted: boolean = false; // Inicializa el estado de la clase
 
-  // Definición de los botones del alert
-  public alertButtons = [
-    {
-      text: 'No',
-      cssClass: 'alert-button-cancel',
-      handler: () => {
-        console.log('Cancel clicked');
-      }
-    },
-    {
-      text: 'Si',
-      cssClass: 'alert-button-confirm',
-      handler: () => {
-        this.redirectToLogin(); // Redirigir al login si se confirma
-      }
-    },
-  ];
-
-  // Inyectamos AlertController, NavController y Router
-  constructor(private alertController: AlertController, private navCtrl: NavController, private router: Router) {}
-
-  ngOnInit() {
-    // Recuperar el usuario del localStorage al inicializar
-    this.usuario = localStorage.getItem('usuario');
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alertController: AlertController
+  ) {
+    // Obtén el nombre de usuario desde localStorage
+    this.usuario = localStorage.getItem('usuario') || 'Invitado'; // Establece 'Invitado' si no hay usuario
   }
 
-  // Método para mostrar el alert
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Finalizar la clase?',
-      buttons: this.alertButtons,
+      header: 'Confirmar',
+      message: '¿Estás seguro de que deseas finalizar la clase?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.cerrarSesion(); // Llama al método de cierre de sesión al confirmar
+          },
+        },
+      ],
     });
 
     await alert.present();
   }
 
-  // Método para redirigir al login
-  redirectToLogin() {
-    this.navCtrl.navigateRoot('/login'); // Navegación al login
-    // También se podría usar Router si prefieres: this.router.navigate(['/login']);
+  cerrarSesion() {
+    this.authService.logout(); // Llama al método de logout en el AuthService
+    localStorage.clear(); // Limpia el localStorage
+    this.router.navigate(['/login']); // Redirige a la página de login
   }
 }

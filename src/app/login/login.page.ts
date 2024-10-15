@@ -1,57 +1,64 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';  // Importa Router
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
-  formularioLogin: FormGroup;
-  usuarioFocused = false;
-  passwordFocused = false;
-  
-  // Propiedades para mostrar/ocultar la contraseña
-  passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
+export class LoginPage implements OnInit {
+  formularioLogin: FormGroup; // Formulario para el login
+  usuarioFocused = false; // Controla el enfoque del campo de usuario
+  passwordFocused = false; // Controla el enfoque del campo de contraseña
+  passwordType = 'password'; // Tipo de entrada para la contraseña
+  passwordIcon = 'eye-off'; // Icono inicial para mostrar/ocultar contraseña
 
-  constructor(private fb: FormBuilder, private router: Router) {  // Inyecta Router
-    this.formularioLogin = this.fb.group({
-      usuario: ['', Validators.required],
-      contraseña: ['', Validators.required]
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    // Inicializa el formulario con validaciones
+    this.formularioLogin = this.formBuilder.group({
+      usuario: ['', [Validators.required]],
+      contraseña: ['', [Validators.required]],
     });
   }
 
-  // Método para verificar si un campo es inválido
-  isFieldInvalid(field: string): boolean {
-    const control = this.formularioLogin.get(field);
-    return control ? control.invalid && (control.dirty || control.touched) : false;
+  ngOnInit() {}
+
+  // Método para alternar la visibilidad de la contraseña
+  togglePasswordVisibility() {
+    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+    this.passwordIcon = this.passwordIcon === 'eye' ? 'eye-off' : 'eye';
   }
 
-  // Método para verificar si un campo es válido
+  // Método para iniciar sesión
+  irHome() {
+    const { usuario, contraseña } = this.formularioLogin.value; // Obtiene los valores del formulario
+
+    console.log('Valores del formulario:', this.formularioLogin.value); // Muestra los valores en la consola
+
+    // Lógica de autenticación
+    if (this.authService.login(usuario, contraseña)) { // Verifica las credenciales
+      localStorage.setItem('usuario', usuario); // Almacena el nombre de usuario en localStorage
+      this.router.navigate(['/home']); // Redirige a la página de inicio
+    } else {
+      alert('Nombre de usuario o contraseña incorrectos'); // Mensaje de error
+    }
+  }
+
+  // Verifica si un campo es válido
   isFieldValid(field: string): boolean {
     const control = this.formularioLogin.get(field);
     return control ? control.valid && (control.dirty || control.touched) : false;
   }
 
-  // Método para redirigir al home
-  irHome() {
-    if (this.formularioLogin.valid) {  // Verifica si el formulario es válido
-      const usuario = this.formularioLogin.get('usuario')?.value;  // Obtén el valor del usuario
-      localStorage.setItem('usuario', usuario);  // Almacena el nombre de usuario en localStorage
-      this.router.navigate(['/home']);  // Redirige a la página de inicio
-    }
-  }
-
-  // Método para alternar la visibilidad de la contraseña
-  togglePasswordVisibility() {
-    if (this.passwordType === 'password') {
-      this.passwordType = 'text';
-      this.passwordIcon = 'eye';
-    } else {
-      this.passwordType = 'password';
-      this.passwordIcon = 'eye-off';
-    }
+  // Verifica si un campo es inválido
+  isFieldInvalid(field: string): boolean {
+    const control = this.formularioLogin.get(field);
+    return control ? control.invalid && control.touched : false;
   }
 }
