@@ -8,12 +8,15 @@ export class AuthService {
   private validPassword = 'password'; // Contraseña permitida
 
   // Método para iniciar sesión
-  login(username: string, password: string): boolean {
+  login(username: string, password: string): { success: boolean, message: string } {
     if (username === this.validUsername && password === this.validPassword) {
-      localStorage.setItem('usuario', username); // Almacena el nombre de usuario
-      return true; // Credenciales válidas
+      localStorage.setItem('usuario', username);
+      return { success: true, message: 'Login exitoso' };
+    } else if (username !== this.validUsername) {
+      return { success: false, message: 'Usuario incorrecto' };
+    } else {
+      return { success: false, message: 'Contraseña incorrecta' };
     }
-    return false; // Credenciales inválidas
   }
 
   // Método para comprobar si el usuario está autenticado

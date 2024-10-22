@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content class="modern-contact-page">
-  <div *ngIf="user" class="contact-card">
-    <img [src]="user.picture.large" alt="User Picture" class="profile-image" />
+  <div *ngFor="let user of users" class="contact-card">
+    <img [src]="user.picture.thumbnail" alt="User Picture" class="profile-image" />
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{ user.name.first }} {{ user.name.last }}</ion-card-title>
@@ -19,9 +19,9 @@
         <p>Location: {{ user.location.city }}, {{ user.location.country }}</p>
       </ion-card-content>
     </ion-card>
-    <ion-button expand="full" (click)="fetchRandomUser()" class="generate-button">Generate Another User</ion-button>
   </div>
-  <div *ngIf="!user" class="loading-message">
-    <p>Cargando usuario...</p>
+  <div *ngIf="!users || users.length === 0" class="loading-message">
+    <p>Cargando usuarios...</p>
   </div>
+  <ion-button expand="full" (click)="fetchRandomUsers()" class="generate-button">Generar Nuevos Usuarios</ion-button>
 </ion-content>

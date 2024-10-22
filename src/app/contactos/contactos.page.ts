@@ -1,27 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Asegúrate de importar HttpClient
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-contactos',
+  selector: 'app-contactos-page',
   templateUrl: './contactos.page.html',
   styleUrls: ['./contactos.page.scss'],
 })
 export class ContactosPage implements OnInit {
-  user: any;
+  users: any[] = [];
 
-  constructor(private http: HttpClient) {} // Inyectamos HttpClient
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    // Carga del usuario inicial
-    this.fetchRandomUser();
+    this.fetchRandomUsers();
   }
 
-  // Método para generar un usuario aleatorio
-  fetchRandomUser() {
-    // Lógica para obtener un usuario aleatorio
-    this.http.get('https://randomuser.me/api/')
-      .subscribe((response: any) => {
-        this.user = response.results[0]; // Asigna el resultado a this.user
-      });
+  fetchRandomUsers() {
+    this.http.get('https://randomuser.me/api/?results=3').subscribe((response: any) => {
+      this.users = response.results;
+    });
   }
 }
