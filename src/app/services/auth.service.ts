@@ -4,28 +4,31 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  private validUsername = 'user'; // Usuario permitido
-  private validPassword = 'password'; // Contraseña permitida
-
   // Método para iniciar sesión
-  login(username: string, password: string): { success: boolean, message: string } {
-    if (username === this.validUsername && password === this.validPassword) {
-      localStorage.setItem('usuario', username);
+  login(username: string, password: string): { success: boolean; message: string } {
+    // Recuperar usuarios del localStorage
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+
+    // Buscar si el usuario existe con el nombre y contraseña proporcionados
+    const usuarioExistente = usuarios.find(
+      (u: any) => u.usuario === username && u.contraseña === password
+    );
+
+    if (usuarioExistente) {
+      localStorage.setItem('usuario', username); // Guardar usuario autenticado
       return { success: true, message: 'Login exitoso' };
-    } else if (username !== this.validUsername) {
-      return { success: false, message: 'Usuario incorrecto' };
     } else {
-      return { success: false, message: 'Contraseña incorrecta' };
+      return { success: false, message: 'Usuario o contraseña incorrectos' };
     }
   }
 
   // Método para comprobar si el usuario está autenticado
   isAuthenticated(): boolean {
-    return localStorage.getItem('usuario') !== null; // Retorna true si hay un usuario en localStorage
+    return localStorage.getItem('usuario') !== null;
   }
 
   // Método para cerrar sesión
   logout() {
-    localStorage.removeItem('usuario'); // Elimina el usuario de localStorage
+    localStorage.removeItem('usuario');
   }
 }

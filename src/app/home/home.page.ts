@@ -45,7 +45,6 @@ export class HomePage {
 
   cerrarSesion() {
     this.authService.logout(); // Llama al método de logout en el AuthService
-    localStorage.clear(); // Limpia el localStorage
     this.router.navigate(['/login']); // Redirige a la página de login
   }
 }

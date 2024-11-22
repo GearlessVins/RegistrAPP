@@ -5,6 +5,8 @@ import { AuthGuard } from './auth.guard'; // Asegúrate de que esta ruta sea cor
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
+  { path: 'registrar', loadChildren: () => import('./registrar/registrar.module').then(m => m.RegistrarPageModule) },
+
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
@@ -19,7 +21,11 @@ const routes: Routes = [
     loadChildren: () => import('./contactos/contactos.module').then(m => m.ContactosPageModule),
     canActivate: [AuthGuard] // Aplica el guard a la ruta contactos
   },
-  { path: '**', redirectTo: 'login' } // Redirige a login si la ruta no se encuentra
+  { path: '**', redirectTo: 'login' },   {
+    path: 'registrar',
+    loadChildren: () => import('./registrar/registrar.module').then( m => m.RegistrarPageModule)
+  }
+// Redirige a login si la ruta no se encuentra
 ];
 
 @NgModule({

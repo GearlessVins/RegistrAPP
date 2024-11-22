@@ -9,18 +9,18 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  formularioLogin: FormGroup; // Formulario para el login
-  usuarioFocused = false; // Controla el enfoque del campo de usuario
-  passwordFocused = false; // Controla el enfoque del campo de contraseña
-  passwordType = 'password'; // Tipo de entrada para la contraseña
-  passwordIcon = 'eye-off'; // Icono inicial para mostrar/ocultar contraseña
+  formularioLogin: FormGroup;
+  usuarioFocused = false;
+  passwordFocused = false;
+  passwordType = 'password';
+  passwordIcon = 'eye-off';
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) {
-    // Inicializa el formulario con validaciones
+    // Inicialización del formulario con validaciones
     this.formularioLogin = this.formBuilder.group({
       usuario: ['', [Validators.required]],
       contraseña: ['', [Validators.required]],
@@ -29,36 +29,42 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  // Método para alternar la visibilidad de la contraseña
+  // Alternar visibilidad de la contraseña
   togglePasswordVisibility() {
     this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
     this.passwordIcon = this.passwordIcon === 'eye' ? 'eye-off' : 'eye';
   }
 
-  // Método para iniciar sesión
+  // Iniciar sesión
   irHome() {
-    const { usuario, contraseña } = this.formularioLogin.value; // Obtiene los valores del formulario
+    const { usuario, contraseña } = this.formularioLogin.value;
 
-    console.log('Valores del formulario:', this.formularioLogin.value); // Muestra los valores en la consola
+    console.log('Valores del formulario:', this.formularioLogin.value);
 
-    // Lógica de autenticación
-    if (this.authService.login(usuario, contraseña)) { // Verifica las credenciales
-      localStorage.setItem('usuario', usuario); // Almacena el nombre de usuario en localStorage
-      this.router.navigate(['/home']); // Redirige a la página de inicio
+    // Validar login a través del AuthService
+    const resultado = this.authService.login(usuario, contraseña);
+    if (resultado.success) {
+      localStorage.setItem('usuario', usuario); // Guardar usuario autenticado
+      this.router.navigate(['/home']); // Redirigir a la página principal
     } else {
-      alert('Nombre de usuario o contraseña incorrectos'); // Mensaje de error
+      alert(resultado.message); // Mostrar mensaje de error
     }
   }
 
-  // Verifica si un campo es válido
+  // Validar si un campo es válido
   isFieldValid(field: string): boolean {
     const control = this.formularioLogin.get(field);
     return control ? control.valid && (control.dirty || control.touched) : false;
   }
 
-  // Verifica si un campo es inválido
+  // Validar si un campo es inválido
   isFieldInvalid(field: string): boolean {
     const control = this.formularioLogin.get(field);
     return control ? control.invalid && control.touched : false;
+  }
+
+  // Redirigir al registro
+  irRegistrar() {
+    this.router.navigate(['/registrar']); // Redirige a la página de registro
   }
 }

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- Botón de regresar -->
+      <ion-button (click)="regresar()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Registrar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="register-container">
+    <form [formGroup]="formularioRegistro">
+
+      <strong>Registro de Usuario</strong>
+
+      <!-- Campo de usuario -->
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input formControlName="usuario"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="isFieldInvalid('usuario')">
+        Ingresa un nombre de usuario válido.
+      </ion-text>
+
+      <!-- Campo de contraseña -->
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [type]="passwordType" formControlName="contraseña"></ion-input>
+        <ion-button fill="clear" size="small" slot="end" (click)="togglePasswordVisibility()">
+          <ion-icon [name]="passwordIcon"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-text color="danger" *ngIf="isFieldInvalid('contraseña')">
+        Ingresa una contraseña válida.
+      </ion-text>
+
+      <!-- Botón para registrar -->
+      <ion-button expand="full" [disabled]="!formularioRegistro.valid" (click)="guardarUsuario()">
+        Registrar
+      </ion-button>
+
+    </form>
+  </div>
+</ion-content>
