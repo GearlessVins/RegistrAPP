@@ -1,16 +1,15 @@
-.qr-generator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .qr-generator ion-item {
-    margin-bottom: 20px;
-  }
-  
-  #qrCanvas {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-  }
-  
+ion-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.qr-container {
+  text-align: center;
+}
+
+.qr-image {
+  width: 300px;  /* Ajusta el tamaño del QR aquí */
+  height: 300px; /* Ajusta el tamaño del QR aquí */
+}

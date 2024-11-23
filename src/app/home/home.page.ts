@@ -21,6 +21,11 @@ export class HomePage {
     this.usuario = localStorage.getItem('usuario') || 'Invitado'; // Establece 'Invitado' si no hay usuario
   }
 
+  // Método para navegar a la página de generador de QR
+  goToQrGenerator() {
+    this.router.navigate(['/qr-generator'], { state: { usuario: this.usuario } });  // Pasa el nombre de usuario
+  }
+
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Confirmar',

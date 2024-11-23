@@ -11,7 +11,7 @@
 
 <ion-content id="main-content" [fullscreen]="true">
   <div id="container">
-    <h1>Bienvenido, {{ usuario }}</h1>
+    <h1>Bienvenid@, {{ usuario }}</h1> <!-- Muestra el nombre del usuario -->
     
     <!-- Mensaje de estado con animación de parpadeo -->
     <h2 [ngClass]="{ 'class-started': isClassStarted, 'class-not-started': !isClassStarted }">
@@ -28,6 +28,11 @@
     <!-- Botón para finalizar la clase -->
     <div>
       <ion-button id="end-class-button" (click)="presentAlert()">Finalizar la sesión</ion-button>
+    </div>
+
+    <!-- Botón para generar el QR con los datos -->
+    <div>
+      <ion-button (click)="goToQrGenerator()">Generar QR</ion-button> <!-- Botón para ir a la página del QR -->
     </div>
   </div>
 </ion-content>
