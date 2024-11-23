@@ -1,0 +1,16 @@
+.qr-generator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .qr-generator ion-item {
+    margin-bottom: 20px;
+  }
+  
+  #qrCanvas {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+  }
+  

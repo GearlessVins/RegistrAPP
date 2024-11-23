@@ -21,11 +21,11 @@ const routes: Routes = [
     loadChildren: () => import('./contactos/contactos.module').then(m => m.ContactosPageModule),
     canActivate: [AuthGuard] // Aplica el guard a la ruta contactos
   },
-  { path: '**', redirectTo: 'login' },   {
-    path: 'registrar',
-    loadChildren: () => import('./registrar/registrar.module').then( m => m.RegistrarPageModule)
-  }
-// Redirige a login si la ruta no se encuentra
+  {
+    path: 'qr-generator',
+    loadChildren: () => import('./qr-generator/qr-generator.module').then( m => m.QrGeneratorPageModule)
+  },
+  { path: '**', redirectTo: 'login' } // Redirige a login si la ruta no se encuentra
 ];
 
 @NgModule({
