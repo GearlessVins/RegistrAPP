@@ -1,10 +1,14 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <!-- Botón de retroceso para navegar hacia la página anterior -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>Generador de QR</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <!-- Campo de entrada para el título personalizado -->
   <ion-item>
     <ion-label position="floating">Título para el QR</ion-label>
@@ -15,7 +19,7 @@
   <ion-button expand="full" color="primary" (click)="generateQRCode()">Generar QR</ion-button>
 
   <!-- Mostrar el QR generado -->
-  <div *ngIf="qrCode">
-    <img [src]="qrCode" alt="Código QR generado" />
+  <div *ngIf="qrCode" class="qr-container">
+    <img [src]="qrCode" alt="Código QR generado" class="qr-image" />
   </div>
 </ion-content>

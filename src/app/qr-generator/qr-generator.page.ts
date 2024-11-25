@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as QRCode from 'qrcode';
+import * as QRCode from 'qrcode';  // Importar la librería para generar el QR
 import { Location } from '@angular/common';
 
 @Component({
